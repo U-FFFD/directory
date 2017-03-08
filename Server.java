@@ -8,7 +8,7 @@ import java.util.Collection;
 
 public class Server{
   public class MainDirectory implements Directory{
-    public Directory(){
+    public MainDirectory(){
 
     }
 
