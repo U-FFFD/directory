@@ -27,6 +27,8 @@ public class Server{
     }
 
     public void clear(){
+  
+      emplDir = new ArrayList<>();
 
     }
   }
