@@ -26,3 +26,21 @@ public class Editor {
     }
 
 }
+
+private class Employee {
+	
+	private String _fname;
+	private String _lname;
+	private String _department;
+	private String _phonenum;
+
+	public Employee(String fname, String lname, String department, String phonenum) {
+		_fname = fname;
+		_lname = lname;
+		_department = department;
+		_phonenum = phonenum;
+	}
+
+	public String toString() {
+		return _lname + ", " + _fname + " " + _phonenum + " " +  _department;
+	}
