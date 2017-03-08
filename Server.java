@@ -11,6 +11,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 public class Server{
+
   public class MainDirectory implements Directory{
     private ArrayList<Employee> emplDir;
 
@@ -39,6 +40,15 @@ public class Server{
       emplDir = new ArrayList<>();
 
     }
+  }
+
+  private MainDirectory theDirectory;
+  public Server(){
+    theDirectory = new MainDirectory();
+  }
+
+  public Directory getDirectory(){
+    return theDirectory;
   }
   /*
   private class Employee{
