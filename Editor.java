@@ -50,10 +50,10 @@ public class Editor {
         }
     }
 
-    private static class DirectoryProxy {
+    private static class DirectoryProxy{
     	Gson g;
     	Directory d;
-    	
+
         DirectoryProxy() {
         	g = new Gson();
         	d = new Directory();

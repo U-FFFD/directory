@@ -18,7 +18,7 @@ public class Server{
     	emplDir = new ArrayList<Employee>();
     }
 
-    @Override public void add(String input){
+    public void add(String input){
       Gson g = new Gson();
       ArrayList<Employee> imported = new ArrayList<>();
       imported = g.fromJson(input, new TypeToken<Collection<Employee>>(){}.getType());
