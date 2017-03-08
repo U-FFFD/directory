@@ -9,10 +9,10 @@ import java.util.ArrayList;
 
 public class Server{
   public class MainDirectory implements Directory{
-    private ArrayList<Employee> emplDir = new ArrayList<>();
+    private ArrayList<Employee> emplDir;
 
     public MainDirectory(){
-
+    	emplDir = new ArrayList<Employee>();
     }
 
     public void add(){
