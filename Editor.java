@@ -21,7 +21,7 @@ public class Editor {
             if (entry.equals("QUIT")) { break; }
 
             else if (entry.equals("ADD")) {
-                ArrayList<Employee> employees = null;
+                ArrayList<Employee> employees = new ArrayList<Employee>();
                 String _fname;
                 System.out.println("Enter 'END' when done adding.");
 
