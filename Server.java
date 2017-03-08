@@ -20,7 +20,10 @@ public class Server{
     }
 
     public void print(){
-
+     	for(Employee x : emplDir)
+    	{
+    	System.out.print(x.toString());
+    	}
     }
 
     public void clear(){
@@ -33,5 +36,12 @@ public class Server{
     public String firstName;
     public String phone;
     public String dept;
+    
+    @Override
+    public String toString()
+    {
+    String s;
+    return  s = lastName + " " + firstName + " " + phone + " " + dept;
+    }
   }
 }
