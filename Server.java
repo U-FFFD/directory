@@ -18,6 +18,7 @@ public class Server{
     	emplDir = new ArrayList<Employee>();
     }
 
+
     public void add(String input){
       Gson g = new Gson();
       ArrayList<Employee> imported = new ArrayList<>();
