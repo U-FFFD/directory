@@ -5,9 +5,12 @@
 */
 
 import java.util.Collection;
+import java.util.ArrayList;
 
 public class Server{
   public class MainDirectory implements Directory{
+    private ArrayList<Employee> emplDir = new ArrayList<>();
+
     public MainDirectory(){
 
     }
