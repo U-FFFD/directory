@@ -10,7 +10,7 @@ public class Editor {
     public static void main(String[] args) {
         boolean exitLoop = false;
         Scanner input = new Scanner(System.in);
-
+        DirectoryProxy proxy = new DirectoryProxy;
         String entry = "";
 
         Gson g = new Gson();
@@ -29,36 +29,26 @@ public class Editor {
             System.out.println("Department: ");
             String _dept = input.nextLine();
 
-            directoryProxy(new Employee(_fname, _lname, _phone, _dept));
+            proxy.add(new Employee(_fname, _lname, _phone, _dept));
 
         }
 
 
     }
 
-    public String directoryProxy(Employee e) {
+    private class DirectoryProxy {
+        DirectoryProxy() {
 
-    }
-
-    private class Employee {
-
-        private String _fname;
-        private String _lname;
-        private String _department;
-        private String _phonenum;
-        
-        public Employee() {}
-
-        public Employee(String fname, String lname, String department, String phonenum) {
-            _fname = fname;
-            _lname = lname;
-            _department = department;
-            _phonenum = phonenum;
         }
 
-        public String toString() {
-            return _lname + ", " + _fname + " " + _phonenum + " " + _department;
-        }
+        /**
+         * @param e
+         */
+        public void add(Employee e) {
 
+
+        }
     }
+
+
 }
