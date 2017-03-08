@@ -52,7 +52,7 @@ public class Editor {
 
     private static class DirectoryProxy {
     	Gson g;
-    	MainDirectory d;
+    	Directory d;
     	
         DirectoryProxy() {
         	g = new Gson();
