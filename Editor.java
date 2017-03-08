@@ -38,7 +38,7 @@ public class Editor {
                     String _dept = input.nextLine();
                     if(_dept.equals("END")) { break; }
 
-                    employees.add(new Employee(_fname, _lname, _phone, _dept));
+                    employees.add(new Employee(_fname, _lname, _dept, _phone ));
                 }
 
                 proxy.add(employees);
