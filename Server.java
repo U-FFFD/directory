@@ -8,7 +8,7 @@ import java.util.Collection;
 import java.util.ArrayList;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 
 public class Server{
   public class MainDirectory implements Directory{
@@ -18,12 +18,14 @@ public class Server{
     	emplDir = new ArrayList<Employee>();
     }
 
-    public void add(String input){
+    @Override public void add(String input){
       Gson g = new Gson();
-      (g.fromJson(input, new TypeToken<Collection<Employee>>(){}.getType()));
+      ArrayList<Employee> imported = new ArrayList<>();
+      imported = g.fromJson(input, new TypeToken<Collection<Employee>>(){}.getType());
+      emplDir.addAll(imported);
     }
 
-    public void print(){
+    @Override public void print(){
      	for(Employee x : emplDir)
     	{
     	System.out.print(x.toString());
@@ -31,7 +33,7 @@ public class Server{
       System.out.println();
     }
 
-    public void clear(){
+    @Override public void clear(){
 
       emplDir = new ArrayList<>();
 
