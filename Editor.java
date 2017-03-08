@@ -38,7 +38,7 @@ public class Editor {
                     String _dept = input.nextLine();
                     if(_dept.equals("END")) { break; }
 
-                    employees.add(new Employee(_fname, _lname, _dept, _phone ));
+                    employees.add(new Employee(_fname, _lname, _phone, _dept));
                 }
 
                 proxy.add(employees);
@@ -51,21 +51,22 @@ public class Editor {
     }
 
     private static class DirectoryProxy {
+    	Gson g;
+    	Directory d;
+    	
         DirectoryProxy() {
-
+        	g = new Gson();
+        	d = new Directory();
         }
 
-        /**
-         * @param e
-         */
         public void add(Collection<Employee> employees) {
-
+        	d.add(g.toJson(employees));
         }
         public void print() {
-
+        	d.print();
         }
         public void clear() {
-
+        	d.clear();
         }
     }
 }
