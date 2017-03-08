@@ -52,19 +52,21 @@ public class Editor {
 
     private static class DirectoryProxy {
     	Gson g;
+    	Directory d;
     	
         DirectoryProxy() {
         	g = new Gson();
+        	d = new Directory();
         }
 
         public void add(Collection<Employee> employees) {
-        	Directory.add(g.toJson(employees));
+        	d.add(g.toJson(employees));
         }
         public void print() {
-        	Directory.print();
+        	d.print();
         }
         public void clear() {
-        	Directory.clear();
+        	d.clear();
         }
     }
 }
