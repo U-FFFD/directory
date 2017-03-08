@@ -3,6 +3,8 @@
  */
 import com.google.gson.Gson;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Scanner;
 public class Editor {
 
@@ -10,33 +12,45 @@ public class Editor {
     public static void main(String[] args) {
         boolean exitLoop = false;
         Scanner input = new Scanner(System.in);
-        DirectoryProxy proxy = new DirectoryProxy;
-        String entry = "";
-
+        DirectoryProxy proxy = new DirectoryProxy();
         Gson g = new Gson();
+
         while (!exitLoop) {
-            System.out.println("Enter a new directory record (enter 'exit' to quit) ");
-            System.out.println("First Name: ");
+            System.out.println("DIRECTORY EDITOR - CMNDS : [ ADD | CLR | END | QUIT ] (enter 'QUIT' to exit) ");
+            String entry = input.nextLine();
+            if (entry.equals("QUIT")) { break; }
 
-            entry = input.nextLine();
-            if (entry.equals("exit")) { break; }
-            String _fname = entry;
+            else if (entry.equals("ADD")) {
+                ArrayList<Employee> employees = null;
+                String _fname;
+                System.out.println("Enter 'END' when done adding.");
 
-            System.out.println("Last Name: ");
-            String _lname = input.nextLine();
-            System.out.println("Phone: ");
-            String _phone = input.nextLine();
-            System.out.println("Department: ");
-            String _dept = input.nextLine();
+                // Start add loop
+                while(true) {
+                    System.out.println("First Name: ");
+                    _fname = input.nextLine();
+                    if(_fname.equals("END")) { break; }
+                    System.out.println("Last Name: ");
+                    String _lname = input.nextLine();
+                    System.out.println("Phone: ");
+                    String _phone = input.nextLine();
+                    System.out.println("Department: ");
+                    String _dept = input.nextLine();
+                    if(_dept.equals("END")) { break; }
 
-            proxy.add(new Employee(_fname, _lname, _phone, _dept));
+                    employees.add(new Employee(_fname, _lname, _phone, _dept));
+                }
 
+                proxy.add(employees);
+            }
+            else if (entry.equals("CLR")) {
+                proxy.clear();
+            }
+            else {}
         }
-
-
     }
 
-    private class DirectoryProxy {
+    private static class DirectoryProxy {
         DirectoryProxy() {
 
         }
@@ -44,11 +58,14 @@ public class Editor {
         /**
          * @param e
          */
-        public void add(Employee e) {
+        public void add(Collection<Employee> employees) {
 
+        }
+        public void print() {
+
+        }
+        public void clear() {
 
         }
     }
-
-
 }
