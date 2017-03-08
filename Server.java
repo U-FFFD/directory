@@ -7,6 +7,9 @@
 import java.util.Collection;
 import java.util.ArrayList;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 public class Server{
   public class MainDirectory implements Directory{
     private ArrayList<Employee> emplDir = new ArrayList<>();
@@ -15,8 +18,9 @@ public class Server{
 
     }
 
-    public void add(){
-
+    public void add(String input){
+      Gson g = new Gson();
+      (g.fromJson(input, new TypeToken<Collection<Employee>>(){}.getType()));
     }
 
     public void print(){
@@ -28,23 +32,21 @@ public class Server{
     }
 
     public void clear(){
-  
+
       emplDir = new ArrayList<>();
 
     }
   }
-
+  /*
   private class Employee{
     public String lastName;
     public String firstName;
     public String phone;
     public String dept;
-    
-    @Override
-    public String toString()
-    {
-    String s;
-    return  s = lastName + " " + firstName + " " + phone + " " + dept;
+
+    @Override public String toString(){
+      return lastName + " " + firstName + " " + phone + " " + dept;
     }
   }
+  */
 }
