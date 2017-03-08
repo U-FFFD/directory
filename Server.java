@@ -24,6 +24,7 @@ public class Server{
     	{
     	System.out.print(x.toString());
     	}
+      System.out.println();
     }
 
     public void clear(){
