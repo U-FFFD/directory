@@ -31,6 +31,7 @@ public class Server{
      	for(Employee x : emplDir)
     	{
     	System.out.print(x.toString());
+      System.out.println();
     	}
       System.out.println();
     }
