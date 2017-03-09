@@ -25,6 +25,8 @@ public class Server{
       ArrayList<Employee> imported = new ArrayList<>();
       imported = g.fromJson(input, new TypeToken<Collection<Employee>>(){}.getType());
       emplDir.addAll(imported);
+
+      Collections.sort(emplDir);
     }
 
     @Override public void print(){

@@ -1,4 +1,4 @@
-public class Employee {
+public class Employee implements Comparable<Employee>{
 
     private String _fname;
     private String _lname;
@@ -16,6 +16,14 @@ public class Employee {
 
     public String toString() {
         return _lname + ", " + _fname + " " + _phonenum + " " + _department;
+    }
+
+    public int compareTo(Employee other){
+      if (this._lname.equals(other._lname)){
+        return this._fname.compareTo(other._fname);
+      }else{
+        return this._lname.comapreTo(other._fname);
+      }
     }
 
 }
