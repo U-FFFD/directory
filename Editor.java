@@ -16,7 +16,7 @@ public class Editor {
         Gson g = new Gson();
 
         while (!exitLoop) {
-            System.out.println("DIRECTORY EDITOR - CMNDS : [ ADD | CLR | END | QUIT ] (enter 'QUIT' to exit) ");
+            System.out.println("DIRECTORY EDITOR - CMNDS : [ ADD | CLR | END | PRINT | QUIT ] (enter 'QUIT' to exit) ");
             String entry = input.nextLine();
             if (entry.equals("QUIT")) { break; }
 
@@ -45,6 +45,10 @@ public class Editor {
             }
             else if (entry.equals("CLR")) {
                 proxy.clear();
+            }
+            else if (entry.equals("PRINT"))
+            {
+            	proxy.print();
             }
             else {}
         }
