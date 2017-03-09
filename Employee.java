@@ -22,7 +22,7 @@ public class Employee implements Comparable<Employee>{
       if (this._lname.equals(other._lname)){
         return this._fname.compareTo(other._fname);
       }else{
-        return this._lname.comapreTo(other._fname);
+        return this._lname.compareTo(other._fname);
       }
     }
 
