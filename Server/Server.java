@@ -60,8 +60,8 @@ public class Server{
     @Override public void print(){
      	for(Employee x : emplDir)
     	{
-    	System.out.print(x.toString());
-      System.out.println();
+    	   System.out.print(x.toString());
+         System.out.println();
     	}
       System.out.println();
     }
@@ -70,6 +70,16 @@ public class Server{
 
       emplDir = new ArrayList<>();
 
+    }
+
+    public String toString(){
+      String ret = "";
+      for (Employee x : emplDir){
+        ret += x.toString();
+        ret += "\n";
+      }
+
+      return ret;
     }
   }
 
@@ -99,15 +109,8 @@ public class Server{
 
       theDirectory.add(sharedResponse);
 
-      theDirectory.print();
-
       // respond to the POST with ROGER
       String postResponse = "ROGER JSON RECEIVED";
-
-      System.out.println("response: " + sharedResponse);
-
-      //Desktop dt = Desktop.getDesktop();
-      //dt.open(new File("raceresults.html"));
 
       // assume that stuff works all the time
       transmission.sendResponseHeaders(300, postResponse.length());
@@ -116,6 +119,27 @@ public class Server{
       outputStream.write(postResponse.getBytes());
 
       outputStream.close();
+    }
+  }
+
+  static class DisplayHandler implements HttpHandler {
+    public void handle(HttpExchange t) throws IOException {
+
+      String response = "Begin of response\n";
+			Gson g = new Gson();
+			// set up the header
+      System.out.println(response);
+
+      response += theDirectory.toString();
+
+      response += "End of response\n";
+      System.out.println(response);
+
+      // write out the response
+      t.sendResponseHeaders(200, response.length());
+      OutputStream os = t.getResponseBody();
+      os.write(response.getBytes());
+      os.close();
     }
   }
 }
