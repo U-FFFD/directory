@@ -107,7 +107,21 @@ public class Server{
       // create our response String to use in other handler
       sharedResponse = sharedResponse+sb.toString();
 
-      theDirectory.add(sharedResponse);
+      String[] splitIn = sharedResponse.split(" ", 2);
+
+      switch(splitIn[0]){
+        case "ADD":
+          theDirectory.add(splitIn[1]);
+          break;
+        case "PRINT":
+          theDirectory.print();
+          break;
+        case "CLEAR":
+          theDirectory.clear();
+          break;
+        default:
+          break;
+      }
 
       // respond to the POST with ROGER
       String postResponse = "ROGER JSON RECEIVED";
