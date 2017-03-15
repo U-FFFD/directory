@@ -1,5 +1,36 @@
 public class Employee implements Comparable<Employee>{
 
+    private enum Gender{
+      MALE("male"),
+      FEMALE("female"),
+      OTHER("other");
+
+      private static final String str;
+
+      public String toString(){
+        return str;
+      }
+
+      private Gender(String str){this.str = str;}
+    }
+
+    private enum Title{
+      MR("Mr. "),
+      MS("Ms. "),
+      MRS("Mrs. "),
+      DR("Dr. "),
+      COL("Col. "),
+      PROF("Prof. ");
+
+      private static final String str;
+
+      public String toString(){
+        return str;
+      }
+
+      private Title(String str){this.str = str;}
+    }
+
     private String _fname;
     private String _lname;
     private String _department;
