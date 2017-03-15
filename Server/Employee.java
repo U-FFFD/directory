@@ -18,7 +18,7 @@ public class Employee implements Comparable<Employee>{
         return _lname + ", " + _fname + " " + _phonenum + " " + _department + "\n";
     }
 
-    public int compareTo(Employee other){
+    @Override public int compareTo(Employee other){
       if (this._lname.equals(other._lname)){
         return this._fname.compareTo(other._fname);
       }else{

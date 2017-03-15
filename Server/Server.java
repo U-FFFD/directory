@@ -1,19 +1,46 @@
 /*
   CS361
-  Lab07
-  8 March 2017
+  Lab08
+  15 March 2017
 */
 
 import java.util.Collection;
 import java.util.Collections;
 import java.util.ArrayList;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.InetSocketAddress;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonSyntaxException;
 import com.google.gson.reflect.TypeToken;
+
+import com.sun.net.httpserver.HttpExchange;
+import com.sun.net.httpserver.HttpHandler;
+import com.sun.net.httpserver.HttpServer;
 
 public class Server{
 
-  public class MainDirectory implements Directory{
+  static String sharedResponse = "";
+  static boolean gotMessageFlag = false;
+
+  static MainDirectory theDirectory = new MainDirectory();
+
+  public static void main(String[] args) throws Exception{
+    HttpServer server = HttpServer.create(new InetSocketAddress(8000), 0);
+
+    // creates contexts for displaying and posting data
+    server.createContext("/displayresults", new DisplayHandler());
+    server.createContext("/sendresults", new PostHandler());
+
+    server.setExecutor(null);
+
+    System.out.println("Server starting");
+    server.start();
+  }
+
+  static class MainDirectory implements Directory{
     private ArrayList<Employee> emplDir;
 
     public MainDirectory(){
@@ -46,24 +73,49 @@ public class Server{
     }
   }
 
-  private MainDirectory theDirectory;
-  public Server(){
-    theDirectory = new MainDirectory();
-  }
+  static class PostHandler implements HttpHandler {
+    public void handle(HttpExchange transmission) throws IOException {
+      //  shared data that is used with other handlers
+      sharedResponse = "";
 
-  public Directory getDirectory(){
-    return theDirectory;
-  }
-  /*
-  private class Employee{
-    public String lastName;
-    public String firstName;
-    public String phone;
-    public String dept;
+      // set up a stream to read the body of the request
+      InputStream inputStr = transmission.getRequestBody();
 
-    @Override public String toString(){
-      return lastName + " " + firstName + " " + phone + " " + dept;
+      // set up a stream to write out the body of the response
+      OutputStream outputStream = transmission.getResponseBody();
+
+      // string to hold the result of reading in the request
+      StringBuilder sb = new StringBuilder();
+
+      // read the characters from the request byte by byte and build up the sharedResponse
+      int nextChar = inputStr.read();
+      while (nextChar > -1) {
+          sb=sb.append((char)nextChar);
+          nextChar=inputStr.read();
+      }
+
+      // create our response String to use in other handler
+      sharedResponse = sharedResponse+sb.toString();
+
+      theDirectory.add(sharedResponse);
+
+      theDirectory.print();
+
+      // respond to the POST with ROGER
+      String postResponse = "ROGER JSON RECEIVED";
+
+      System.out.println("response: " + sharedResponse);
+
+      //Desktop dt = Desktop.getDesktop();
+      //dt.open(new File("raceresults.html"));
+
+      // assume that stuff works all the time
+      transmission.sendResponseHeaders(300, postResponse.length());
+
+      // write it and return it
+      outputStream.write(postResponse.getBytes());
+
+      outputStream.close();
     }
   }
-  */
 }
