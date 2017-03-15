@@ -36,6 +36,9 @@ public class Employee implements Comparable<Employee>{
     private String _department;
     private String _phonenum;
 
+    private Gender _gender;
+    private Title _title;
+
     public Employee() {}
 
     public Employee(String fname, String lname, String department, String phonenum) {
@@ -46,7 +49,7 @@ public class Employee implements Comparable<Employee>{
     }
 
     public String toString() {
-        return _lname + ", " + _fname + " " + _phonenum + " " + _department + "\n";
+        return _title.toString() + _fname + " " + _lname + "; " + _gender.toString() + " " + _phonenum + " " + _department + "\n";
     }
 
     @Override public int compareTo(Employee other){
