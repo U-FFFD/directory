@@ -5,7 +5,7 @@ public class Employee implements Comparable<Employee>{
       FEMALE("female"),
       OTHER("other");
 
-      private static final String str;
+      private final String str;
 
       public String toString(){
         return str;
@@ -22,7 +22,7 @@ public class Employee implements Comparable<Employee>{
       COL("Col. "),
       PROF("Prof. ");
 
-      private static final String str;
+      private final String str;
 
       public String toString(){
         return str;
