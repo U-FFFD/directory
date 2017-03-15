@@ -1,0 +1,13 @@
+.root {
+    -fx-background-image: url("http://rcysl.com/wp-content/uploads/2016/12/Blur-Wallpaper-HDQ-Cover.png");
+}
+
+#fancytext {
+       -fx-font: 50px Helvetica;
+       -fx-fill: white;
+   }
+
+#bodytext {
+    -fx-font: 14px Helvetica;
+    -fx-fill: white;
+}
