@@ -35,16 +35,18 @@ public class Employee implements Comparable<Employee>{
     protected String _department;
     protected String _phonenum;
 
-    protected Gender _gender;
+    protected String _gender;
     protected Prefix _prefix;
 
     public Employee() {}
 
-    public Employee(String fname, String lname, String department, String phonenum) {
+    public Employee(String fname, String lname, String department, String phonenum, String gender, Prefix prefix) {
         this._fname = fname;
         this._lname = lname;
         this._department = department;
         this._phonenum = phonenum;
+        this._gender = gender;
+        this._prefix = prefix;
     }
 
     public String toString() {
