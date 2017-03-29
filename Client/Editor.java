@@ -6,13 +6,18 @@ import com.google.gson.Gson;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Scanner;
+
+import java.io.DataOutputStream;
+import java.io.InputStreamReader;
+import java.net.URL;
+import java.net.HttpURLConnection;
+
 public class Editor {
 
 
     public static void main(String[] args) {
         boolean exitLoop = false;
         Scanner input = new Scanner(System.in);
-        DirectoryProxy proxy = new DirectoryProxy();
         Gson g = new Gson();
 
         while (!exitLoop) {
@@ -41,40 +46,49 @@ public class Editor {
                     employees.add(new Employee(_fname, _lname, _phone, _dept));
                 }
 
-                proxy.add(employees);
+
             }
             else if (entry.equals("CLR")) {
-                proxy.clear();
+
             }
             else if (entry.equals("PRINT"))
             {
-            	proxy.print();
+
             }
             else {}
         }
     }
 
-    private static class DirectoryProxy{
-    	Gson g;
-    	Server s;
-      Directory d;
+  public void sendDataToServer(String json){
+    try {
+      // set up URL to connect
+      URL site = new URL("http://localhost:8000/sendresults");
+      HttpURLConnection conn = (HttpURLConnection) site.openConnection();
 
-        DirectoryProxy() {
-        	g = new Gson();
-          s = new Server();
-          d = s.theDirectory;
+      // create POST request
+      conn.setRequestMethod("POST");
+      conn.setDoOutput(true);
+      conn.setDoInput(true);
+      DataOutputStream out = new DataOutputStream(conn.getOutputStream());
 
-        }
+      out.writeBytes(json);
+      out.flush();
+      out.close();
 
-        public void add(Collection<Employee> employees) {
-          String json = g.toJson(employees);
-        	d.add(json);
-        }
-        public void print() {
-        	d.print();
-        }
-        public void clear() {
-        	d.clear();
-        }
+      System.out.println("JSON sent to server");
+
+      InputStreamReader inputStr = new InputStreamReader(conn.getInputStream());
+
+      StringBuilder sb = new StringBuilder();
+
+      int nextChar;
+      while((nextChar = inputStr.read()) > -1) {
+        sb = sb.append((char) nextChar);
+      }
+
+      System.out.println("Return: " + sb);
+    } catch (Exception ex) {
+      ex.printStackTrace();
     }
+  }
 }
