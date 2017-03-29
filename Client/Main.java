@@ -14,7 +14,17 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.io.DataOutputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Scanner;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 public class Main extends Application {
 
@@ -141,4 +151,36 @@ public class Main extends Application {
     public static void main(String[] args) {
         launch(args);
     }
+
+    public void sendDataToServer(String json){
+      try {
+        // set up URL to connect
+        URL site = new URL("http://localhost:8000/sendresults");
+        HttpURLConnection conn = (HttpURLConnection) site.openConnection();
+
+        // create POST request
+        conn.setRequestMethod("POST");
+        conn.setDoOutput(true);
+        conn.setDoInput(true);
+        DataOutputStream out = new DataOutputStream(conn.getOutputStream());
+
+        out.writeBytes(json);
+        out.flush();
+        out.close();
+
+        System.out.println("JSON sent to server");
+
+        InputStreamReader inputStr = new InputStreamReader(conn.getInputStream());
+
+        StringBuilder sb = new StringBuilder();
+
+        int nextChar;
+        while((nextChar = inputStr.read()) > -1) {
+          sb = sb.append((char) nextChar);
+        }
+
+        System.out.println("Return: " + sb);
+      } catch (Exception ex) {
+        ex.printStackTrace();
+      }
 }
