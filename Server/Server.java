@@ -76,9 +76,9 @@ public class Server{
 
     public void add(String input){
       Gson g = new Gson();
-      ArrayList<Employee> imported = new ArrayList<>();
-      imported = g.fromJson(input, new TypeToken<Collection<Employee>>(){}.getType());
-      emplDir.addAll(imported);
+      Employee imported;
+      imported = g.fromJson(input, Employee.class);
+      emplDir.add(imported);
 
       Collections.sort(emplDir);
     }
@@ -143,11 +143,13 @@ public class Server{
       sharedResponse = sharedResponse+sb.toString();
 
       String[] splitIn = sharedResponse.split(" ", 2);
+      System.out.println("Command: " + splitIn[0]);
 
       switch(splitIn[0]){
         case "ADD":
-          System.out.println("Adding");
+          System.out.println("Adding " + splitIn[1]);
           theDirectory.add(splitIn[1]);
+          System.out.println("Added " + splitIn[1]);
           break;
         case "PRINT":
           System.out.println("Printing:");
