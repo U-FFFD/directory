@@ -27,7 +27,25 @@ public class Server{
 
   static MainDirectory theDirectory = new MainDirectory();
 
-  private String htmlout = "";
+  static String htmltop = "<!DOCTYPE html>\n"
+  + "<head>\n"
+  + "<title>U+FFFD Corp's Super Private Employee Directory</title>\n"
+  + "</head>\n"
+  + "<body>\n"
+  + "<table>\n"
+  + "<thead>\n"
+  + "<tr>\n"
+  + "<th>Title</th>\n"
+  + "<th>First Name</th>\n"
+  + "<th>Last Name</th>\n"
+  + "<th>Gender</th>\n"
+  + "<th>Phone</th>\n"
+  + "<th>Department</th>\n"
+  + "</tr>\n";
+
+  static String htmlbottom = "</table>\n"
+  + "</body\n"
+  + "</html>\n";
 
   public static void main(String[] args) throws Exception{
     HttpServer server = HttpServer.create(new InetSocketAddress(8000), 0);
@@ -82,6 +100,11 @@ public class Server{
       }
 
       return ret;
+    }
+
+    public String toTable(){
+
+      return "";
     }
   }
 
@@ -141,14 +164,15 @@ public class Server{
   static class DisplayHandler implements HttpHandler {
     public void handle(HttpExchange t) throws IOException {
 
-      String response = "Begin of response\n";
+      String response = "";
+      response += htmltop;
 			Gson g = new Gson();
 			// set up the header
       System.out.println(response);
 
-      response += theDirectory.toString();
+      response += theDirectory.toTable();
 
-      response += "End of response\n";
+      response += htmlbottom;
       System.out.println(response);
 
       // write out the response
