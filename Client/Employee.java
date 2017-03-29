@@ -5,16 +5,16 @@ public class Employee implements Comparable<Employee>{
       FEMALE("female"),
       OTHER("other");
 
-      protected final String str;
+      private final String str;
 
       public String toString(){
         return str;
       }
 
-      Gender(String str){this.str = str;}
+      private Gender(String str){this.str = str;}
     }
 
-    protected enum Prefix{
+    protected enum Title{
       MR("Mr. "),
       MS("Ms. "),
       MRS("Mrs. "),
@@ -22,33 +22,47 @@ public class Employee implements Comparable<Employee>{
       COL("Col. "),
       PROF("Prof. ");
 
-      protected final String str;
+      private final String str;
 
       public String toString(){
         return str;
       }
-      Prefix(String str){this.str = str;}
+
+      private Title(String str){this.str = str;}
     }
 
-    protected String _fname;
-    protected String _lname;
-    protected String _department;
-    protected String _phonenum;
+    private String _fname;
+    private String _lname;
+    private String _department;
+    private String _phonenum;
 
-    protected Gender _gender;
-    protected Prefix _prefix;
+    private Gender _gender;
+    private Title _title;
 
     public Employee() {}
 
-    public Employee(String fname, String lname, String department, String phonenum) {
+    public Employee(String fname, String lname, String department, String phonenum, Gender gender, Title title) {
         this._fname = fname;
         this._lname = lname;
         this._department = department;
         this._phonenum = phonenum;
+        this._gender = gender;
+        this._title = title;
     }
 
     public String toString() {
-        return _prefix.toString() + _fname + " " + _lname + "; " + _gender.toString() + " " + _phonenum + " " + _department + "\n";
+        return _title.toString() + _fname + " " + _lname + "; " + _gender.toString() + " " + _phonenum + " " + _department + "\n";
+    }
+
+    public String toTable() {
+      return "<tr>\n"
+      + "<td>" + _title.toString() + "</td>\n"
+      + "<td>" + _fname + "</td>\n"
+      + "<td>" + _lname + "</td>\n"
+      + "<td>" + _gender.toString() + "</td>\n"
+      + "<td>" + _phonenum + "</td>\n"
+      + "<td>" + _department + "</td>\n"
+      + "</tr>";
     }
 
     @Override public int compareTo(Employee other){

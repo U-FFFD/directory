@@ -1,6 +1,6 @@
 public class Employee implements Comparable<Employee>{
 
-    private enum Gender{
+    protected enum Gender{
       MALE("male"),
       FEMALE("female"),
       OTHER("other");
@@ -14,7 +14,7 @@ public class Employee implements Comparable<Employee>{
       private Gender(String str){this.str = str;}
     }
 
-    private enum Title{
+    protected enum Title{
       MR("Mr. "),
       MS("Ms. "),
       MRS("Mrs. "),
@@ -41,11 +41,13 @@ public class Employee implements Comparable<Employee>{
 
     public Employee() {}
 
-    public Employee(String fname, String lname, String department, String phonenum) {
+    public Employee(String fname, String lname, String department, String phonenum, Gender gender, Title title) {
         this._fname = fname;
         this._lname = lname;
         this._department = department;
         this._phonenum = phonenum;
+        this._gender = gender;
+        this._title = title;
     }
 
     public String toString() {

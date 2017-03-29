@@ -165,7 +165,7 @@ public class Server{
       String postResponse = "ROGER JSON RECEIVED";
 
       // assume that stuff works all the time
-      transmission.sendResponseHeaders(300, postResponse.length());
+      transmission.sendResponseHeaders(200, postResponse.length());
 
       // write it and return it
       outputStream.write(postResponse.getBytes());
