@@ -62,7 +62,7 @@ public class Editor {
         DirectoryProxy() {
         	g = new Gson();
           s = new Server();
-          d = s.getDirectory();
+          d = s.theDirectory;
 
         }
 
