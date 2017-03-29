@@ -124,7 +124,8 @@ public class Main extends Application {
                 String _lname = lastNameField.getText();
                 String _department = departmentField.getText();
                 String _phonenum = phoneField.getText();
-                Employee.Gender _gender = group.getSelectedToggle().getUserData();
+                Employee.Gender _gender = Employee.Gender.valueOf(group.getSelectedToggle().getUserData().toString().toUpperCase());
+
                 String fromList = list.getSelectionModel().getSelectedItem().toUpperCase();
                 Employee.Title _title = Employee.Title.valueOf(fromList.substring(0,fromList.length()-1));
 
@@ -155,8 +156,8 @@ public class Main extends Application {
 
             @Override
             public void handle(ActionEvent event) {
-            	System.out.println("Clearing");
-            	sendDataToServer("CLEAR");
+                System.out.println("Clearing");
+                sendDataToServer("CLEAR");
             }
         });
         clrBtn.setTranslateX(submitBtn.getTranslateX() + 270);
@@ -168,8 +169,8 @@ public class Main extends Application {
 
             @Override
             public void handle(ActionEvent event) {
-            	System.out.println("Printing");
-            	sendDataToServer("PRINT");
+                System.out.println("Printing");
+                sendDataToServer("PRINT");
             }
         });
         printBtn.setTranslateX(submitBtn.getTranslateX() + 150);
@@ -211,16 +212,16 @@ public class Main extends Application {
 
             String send = "";
             switch (input){
-              case "CLEAR":
-                send = "CLEAR";
-                break;
-              case "PRINT":
-                send = "PRINT";
-                break;
-              default:
-                send = "ADD " + input;
-                System.out.println("json: " + input);
-                break;
+                case "CLEAR":
+                    send = "CLEAR";
+                    break;
+                case "PRINT":
+                    send = "PRINT";
+                    break;
+                default:
+                    send = "ADD " + input;
+                    System.out.println("json: " + input);
+                    break;
             }
 
             out.writeBytes(send);
