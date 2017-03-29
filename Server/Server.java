@@ -181,12 +181,10 @@ public class Server{
       response += htmltop;
 			Gson g = new Gson();
 			// set up the header
-      System.out.println(response);
 
       response += theDirectory.toTable();
 
       response += htmlbottom;
-      System.out.println(response);
 
       // write out the response
       t.sendResponseHeaders(200, response.length());
@@ -199,8 +197,6 @@ public class Server{
   static class CssHandler implements HttpHandler {
     public void handle(HttpExchange t) throws IOException {
       String css = new Scanner(new File("style.css")).useDelimiter("\\Z").next();
-
-      System.out.println("css: " + css);
 
       t.sendResponseHeaders(200, css.length());
       OutputStream os = t.getResponseBody();
