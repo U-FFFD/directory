@@ -18,23 +18,25 @@ import java.io.DataOutputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.Scanner;
 
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+        String _fname;
+        String _lname;
+        String _department;
+        String _phonenum;
+
+        String _gender;
+        String _prefix;
+
         primaryStage.setTitle("Lab 8 GUI");
 
-        Button btn = new Button();
-        btn.setText("Submit [send]");
-        btn.setOnAction(new EventHandler<ActionEvent>() {
+        Button submitBtn = new Button();
+        submitBtn.setText("Submit [send]");
+        submitBtn.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
             public void handle(ActionEvent event) {
@@ -42,9 +44,9 @@ public class Main extends Application {
             }
         });
 
-        Button btn2 = new Button();
-        btn2.setText("Exit");
-        btn2.setOnAction(new EventHandler<ActionEvent>() {
+        Button exitBtn = new Button();
+        exitBtn.setText("Exit");
+        exitBtn.setOnAction(new EventHandler<ActionEvent>() {
 
             @Override
             public void handle(ActionEvent event) {
@@ -56,10 +58,10 @@ public class Main extends Application {
         StackPane root = new StackPane();
         root.getStylesheets().addAll(this.getClass().getResource("style.css").toExternalForm());
 
-        btn.setTranslateX(0);
-        btn.setTranslateY(20);
-        //btn2.setTranslateX(20);
-        btn2.setTranslateY(100);
+        submitBtn.setTranslateX(0);
+        submitBtn.setTranslateY(20);
+        //exitBtn.setTranslateX(20);
+        exitBtn.setTranslateY(100);
 
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
@@ -97,31 +99,29 @@ public class Main extends Application {
         grid.add(phoneField, 1 , 4);
 
         final ToggleGroup group = new ToggleGroup();
-        RadioButton rb1 = new RadioButton("Male");
-        rb1.setTextFill(Color.WHITE);
-        rb1.setToggleGroup(group);
-        rb1.setSelected(true);
-        rb1.setTranslateX(grid.getTranslateX() + 220);
-        rb1.setTranslateY(-140);
+        RadioButton maleRb = new RadioButton("Male");
+        maleRb.setTextFill(Color.WHITE);
+        maleRb.setToggleGroup(group);
+        maleRb.setSelected(true);
+        maleRb.setTranslateX(grid.getTranslateX() + 220);
+        maleRb.setTranslateY(-140);
 
-        RadioButton rb2 = new RadioButton("Female");
-        rb2.setTextFill(Color.WHITE);
-        rb2.setToggleGroup(group);
-        rb2.setTranslateX(grid.getTranslateX() + 220);
-        rb2.setTranslateY(-110);
+        RadioButton femaleRb = new RadioButton("Female");
+        femaleRb.setTextFill(Color.WHITE);
+        femaleRb.setToggleGroup(group);
+        femaleRb.setTranslateX(grid.getTranslateX() + 220);
+        femaleRb.setTranslateY(-110);
 
-        RadioButton rb3 = new RadioButton("Other");
-        rb3.setTextFill(Color.WHITE);
-        rb3.setToggleGroup(group);
-        rb3.setTranslateX(grid.getTranslateX() + 220);
-        rb3.setTranslateY(-80);
+        RadioButton otherRb = new RadioButton("Other");
+        otherRb.setTextFill(Color.WHITE);
+        otherRb.setToggleGroup(group);
+        otherRb.setTranslateX(grid.getTranslateX() + 220);
+        otherRb.setTranslateY(-80);
 
         group.selectedToggleProperty().addListener(new ChangeListener<Toggle>(){
             public void changed(ObservableValue<? extends Toggle> ov,
                                 Toggle old_toggle, Toggle new_toggle) {
-                        System.out.println("test RB");
-
-
+                        System.out.println("Setting Gender");
             }
         });
 
@@ -135,11 +135,11 @@ public class Main extends Application {
         list.setTranslateY(-110);
 
         root.getChildren().add(grid);
-        root.getChildren().add(btn);
-        root.getChildren().add(btn2);
-        root.getChildren().add(rb1);
-        root.getChildren().add(rb2);
-        root.getChildren().add(rb3);
+        root.getChildren().add(submitBtn);
+        root.getChildren().add(exitBtn);
+        root.getChildren().add(maleRb);
+        root.getChildren().add(femaleRb);
+        root.getChildren().add(otherRb);
         root.getChildren().add(list);
 
         primaryStage.setScene(new Scene(root, 900, 600));
@@ -152,35 +152,37 @@ public class Main extends Application {
         launch(args);
     }
 
+
     public void sendDataToServer(String json){
-      try {
-        // set up URL to connect
-        URL site = new URL("http://localhost:8000/sendresults");
-        HttpURLConnection conn = (HttpURLConnection) site.openConnection();
+        try {
+            // set up URL to connect
+            URL site = new URL("http://localhost:8000/sendresults");
+            HttpURLConnection conn = (HttpURLConnection) site.openConnection();
 
-        // create POST request
-        conn.setRequestMethod("POST");
-        conn.setDoOutput(true);
-        conn.setDoInput(true);
-        DataOutputStream out = new DataOutputStream(conn.getOutputStream());
+            // create POST request
+            conn.setRequestMethod("POST");
+            conn.setDoOutput(true);
+            conn.setDoInput(true);
+            DataOutputStream out = new DataOutputStream(conn.getOutputStream());
 
-        out.writeBytes(json);
-        out.flush();
-        out.close();
+            out.writeBytes(json);
+            out.flush();
+            out.close();
 
-        System.out.println("JSON sent to server");
+            System.out.println("JSON sent to server");
 
-        InputStreamReader inputStr = new InputStreamReader(conn.getInputStream());
+            InputStreamReader inputStr = new InputStreamReader(conn.getInputStream());
 
-        StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new StringBuilder();
 
-        int nextChar;
-        while((nextChar = inputStr.read()) > -1) {
-          sb = sb.append((char) nextChar);
+            int nextChar;
+            while((nextChar = inputStr.read()) > -1) {
+                sb = sb.append((char) nextChar);
+            }
+
+            System.out.println("Return: " + sb);
+        } catch (Exception ex) {
+            ex.printStackTrace();
         }
-
-        System.out.println("Return: " + sb);
-      } catch (Exception ex) {
-        ex.printStackTrace();
-      }
+    }
 }
