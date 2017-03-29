@@ -148,7 +148,7 @@ public class Main extends Application {
             }
         });
         exitBtn.setTranslateY(100);
-        
+
         Button clrBtn = new Button();
         clrBtn.setText("CLEAR");
         clrBtn.setOnAction(new EventHandler<ActionEvent>() {
@@ -156,12 +156,12 @@ public class Main extends Application {
             @Override
             public void handle(ActionEvent event) {
             	System.out.println("Clearing");
-            	sendDataToServer("CLEAR");   
+            	sendDataToServer("CLEAR");
             }
         });
         clrBtn.setTranslateX(submitBtn.getTranslateX() + 270);
         clrBtn.setTranslateY(submitBtn.getTranslateY());
-        
+
         Button printBtn = new Button();
         printBtn.setText("PRINT");
         printBtn.setOnAction(new EventHandler<ActionEvent>() {
@@ -169,7 +169,7 @@ public class Main extends Application {
             @Override
             public void handle(ActionEvent event) {
             	System.out.println("Printing");
-            	sendDataToServer("PRINT");   
+            	sendDataToServer("PRINT");
             }
         });
         printBtn.setTranslateX(submitBtn.getTranslateX() + 150);
@@ -187,7 +187,7 @@ public class Main extends Application {
 
         primaryStage.setScene(new Scene(root, 900, 600));
         primaryStage.show();
-        
+
     }
 
 
@@ -208,7 +208,7 @@ public class Main extends Application {
             conn.setDoInput(true);
             DataOutputStream out = new DataOutputStream(conn.getOutputStream());
 
-            out.writeBytes(json);
+            out.writeBytes("ADD " + json);
             out.flush();
             out.close();
 
