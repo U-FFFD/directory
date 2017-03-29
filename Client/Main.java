@@ -91,19 +91,19 @@ public class Main extends Application {
         rb1.setTextFill(Color.WHITE);
         rb1.setToggleGroup(group);
         rb1.setSelected(true);
-        rb1.setTranslateX(200);
+        rb1.setTranslateX(grid.getTranslateX() + 220);
         rb1.setTranslateY(-140);
 
         RadioButton rb2 = new RadioButton("Female");
         rb2.setTextFill(Color.WHITE);
         rb2.setToggleGroup(group);
-        rb2.setTranslateX(205);
+        rb2.setTranslateX(grid.getTranslateX() + 220);
         rb2.setTranslateY(-110);
 
         RadioButton rb3 = new RadioButton("Other");
         rb3.setTextFill(Color.WHITE);
         rb3.setToggleGroup(group);
-        rb3.setTranslateX(202);
+        rb3.setTranslateX(grid.getTranslateX() + 220);
         rb3.setTranslateY(-80);
 
         group.selectedToggleProperty().addListener(new ChangeListener<Toggle>(){
