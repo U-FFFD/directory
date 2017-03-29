@@ -52,6 +52,17 @@ public class Employee implements Comparable<Employee>{
         return _title.toString() + _fname + " " + _lname + "; " + _gender.toString() + " " + _phonenum + " " + _department + "\n";
     }
 
+    public String toTable() {
+      return "<tr>\n"
+      + "<td>" + _title.toString() + "</td>\n"
+      + "<td>" + _fname + "</td>\n"
+      + "<td>" + _lname + "</td>\n"
+      + "<td>" + _gender.toString() + "</td>\n"
+      + "<td>" + _phonenum + "</td>\n"
+      + "<td>" + _department + "</td>\n"
+      + "</tr>";
+    }
+
     @Override public int compareTo(Employee other){
       if (this._lname.equals(other._lname)){
         return this._fname.compareTo(other._fname);

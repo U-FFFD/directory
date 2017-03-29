@@ -44,9 +44,11 @@ public class Server{
   + "<th>Gender</th>\n"
   + "<th>Phone</th>\n"
   + "<th>Department</th>\n"
-  + "</tr>\n";
+  + "</tr>\n"
+  + "<tbody>\n";
 
-  static String htmlbottom = "</table>\n"
+  static String htmlbottom = "</tbody>\n"
+  + "</table>\n"
   + "</body\n"
   + "</html>\n";
 
@@ -107,8 +109,12 @@ public class Server{
     }
 
     public String toTable(){
+      String ret = "";
 
-      return "";
+      for (Employee x : emplDir){
+        ret += x.toTable();
+      }
+      return ret;
     }
   }
 
@@ -140,12 +146,15 @@ public class Server{
 
       switch(splitIn[0]){
         case "ADD":
+          System.out.println("Adding");
           theDirectory.add(splitIn[1]);
           break;
         case "PRINT":
+          System.out.println("Printing:");
           theDirectory.print();
           break;
         case "CLEAR":
+          System.out.println("Clearing...");
           theDirectory.clear();
           break;
         default:
