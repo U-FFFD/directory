@@ -148,10 +148,38 @@ public class Main extends Application {
             }
         });
         exitBtn.setTranslateY(100);
+        
+        Button clrBtn = new Button();
+        clrBtn.setText("CLEAR");
+        clrBtn.setOnAction(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) {
+            	System.out.println("Clearing");
+            	sendDataToServer("CLEAR");   
+            }
+        });
+        clrBtn.setTranslateX(submitBtn.getTranslateX() + 270);
+        clrBtn.setTranslateY(submitBtn.getTranslateY());
+        
+        Button printBtn = new Button();
+        printBtn.setText("PRINT");
+        printBtn.setOnAction(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) {
+            	System.out.println("Printing");
+            	sendDataToServer("PRINT");   
+            }
+        });
+        printBtn.setTranslateX(submitBtn.getTranslateX() + 150);
+        printBtn.setTranslateY(submitBtn.getTranslateY());
 
         root.getChildren().add(grid);
         root.getChildren().add(submitBtn);
         root.getChildren().add(exitBtn);
+        root.getChildren().add(printBtn);
+        root.getChildren().add(clrBtn);
         root.getChildren().add(maleRb);
         root.getChildren().add(femaleRb);
         root.getChildren().add(otherRb);
