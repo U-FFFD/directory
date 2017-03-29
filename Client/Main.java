@@ -34,34 +34,8 @@ public class Main extends Application {
 
         primaryStage.setTitle("Lab 8 GUI");
 
-        Button submitBtn = new Button();
-        submitBtn.setText("Submit [send]");
-        submitBtn.setOnAction(new EventHandler<ActionEvent>() {
-
-            @Override
-            public void handle(ActionEvent event) {
-                System.out.println("Button 1 output");
-            }
-        });
-
-        Button exitBtn = new Button();
-        exitBtn.setText("Exit");
-        exitBtn.setOnAction(new EventHandler<ActionEvent>() {
-
-            @Override
-            public void handle(ActionEvent event) {
-                System.out.println("Button 2 output");
-            }
-        });
-
-
         StackPane root = new StackPane();
         root.getStylesheets().addAll(this.getClass().getResource("style.css").toExternalForm());
-
-        submitBtn.setTranslateX(0);
-        submitBtn.setTranslateY(20);
-        //exitBtn.setTranslateX(20);
-        exitBtn.setTranslateY(100);
 
         GridPane grid = new GridPane();
         grid.setAlignment(Pos.CENTER);
@@ -97,9 +71,10 @@ public class Main extends Application {
         grid.add(phone, 0,4);
         TextField phoneField = new TextField();
         grid.add(phoneField, 1 , 4);
-
+              
         final ToggleGroup group = new ToggleGroup();
         RadioButton maleRb = new RadioButton("Male");
+        maleRb.setUserData("Male");
         maleRb.setTextFill(Color.WHITE);
         maleRb.setToggleGroup(group);
         maleRb.setSelected(true);
@@ -108,20 +83,22 @@ public class Main extends Application {
 
         RadioButton femaleRb = new RadioButton("Female");
         femaleRb.setTextFill(Color.WHITE);
+        femaleRb.setUserData("Female");
         femaleRb.setToggleGroup(group);
         femaleRb.setTranslateX(grid.getTranslateX() + 220);
         femaleRb.setTranslateY(-110);
 
         RadioButton otherRb = new RadioButton("Other");
         otherRb.setTextFill(Color.WHITE);
+        otherRb.setUserData("Other");
         otherRb.setToggleGroup(group);
         otherRb.setTranslateX(grid.getTranslateX() + 220);
         otherRb.setTranslateY(-80);
 
         group.selectedToggleProperty().addListener(new ChangeListener<Toggle>(){
             public void changed(ObservableValue<? extends Toggle> ov,
-                                Toggle old_toggle, Toggle new_toggle) {
-                        System.out.println("Setting Gender");
+                  Toggle old_toggle, Toggle new_toggle) { 
+                  System.out.println("Setting Gender");
             }
         });
 
@@ -133,6 +110,40 @@ public class Main extends Application {
         list.setItems(items);
         list.setTranslateX(-170);
         list.setTranslateY(-110);
+         
+        Button submitBtn = new Button();
+        submitBtn.setText("Submit [send]");
+        submitBtn.setTranslateX(0);
+        submitBtn.setTranslateY(20); 
+        submitBtn.setOnAction(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) {
+            String _fname = firstNameField.getText();
+            String _lname = lastNameField.getText();
+            String _department = departmentField.getText();
+            String _phonenum = phoneField.getText();
+            String _gender = group.getSelectedToggle().getUserData().toString();
+       
+            Employee.Prefix _prefix = Employee.Prefix.valueOf(list.getOnMouseClicked().toString().toUpperCase());
+            System.out.println(_prefix.toString());
+            
+            	Employee e = new Employee(_fname, _lname, _department, _phonenum, _gender, _prefix);  
+            }
+        });
+        
+        Button exitBtn = new Button();
+        exitBtn.setText("Exit");
+        exitBtn.setOnAction(new EventHandler<ActionEvent>() {
+
+            @Override
+            public void handle(ActionEvent event) {
+            	System.out.println("Exiting");
+            	primaryStage.close();
+                
+            }
+        });
+        exitBtn.setTranslateY(100);
 
         root.getChildren().add(grid);
         root.getChildren().add(submitBtn);
@@ -144,6 +155,8 @@ public class Main extends Application {
 
         primaryStage.setScene(new Scene(root, 900, 600));
         primaryStage.show();
+        
+        
 
     }
 
