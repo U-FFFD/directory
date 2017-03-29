@@ -1,20 +1,20 @@
 public class Employee implements Comparable<Employee>{
 
-    private enum Gender{
+    protected enum Gender{
       MALE("male"),
       FEMALE("female"),
       OTHER("other");
 
-      private final String str;
+      protected final String str;
 
       public String toString(){
         return str;
       }
 
-      private Gender(String str){this.str = str;}
+      Gender(String str){this.str = str;}
     }
 
-    private enum Title{
+    protected enum Prefix{
       MR("Mr. "),
       MS("Ms. "),
       MRS("Mrs. "),
@@ -22,22 +22,21 @@ public class Employee implements Comparable<Employee>{
       COL("Col. "),
       PROF("Prof. ");
 
-      private final String str;
+      protected final String str;
 
       public String toString(){
         return str;
       }
-
-      private Title(String str){this.str = str;}
+      Prefix(String str){this.str = str;}
     }
 
-    private String _fname;
-    private String _lname;
-    private String _department;
-    private String _phonenum;
+    protected String _fname;
+    protected String _lname;
+    protected String _department;
+    protected String _phonenum;
 
-    private Gender _gender;
-    private Title _title;
+    protected Gender _gender;
+    protected Prefix _prefix;
 
     public Employee() {}
 
@@ -49,7 +48,7 @@ public class Employee implements Comparable<Employee>{
     }
 
     public String toString() {
-        return _title.toString() + _fname + " " + _lname + "; " + _gender.toString() + " " + _phonenum + " " + _department + "\n";
+        return _prefix.toString() + _fname + " " + _lname + "; " + _gender.toString() + " " + _phonenum + " " + _department + "\n";
     }
 
     @Override public int compareTo(Employee other){
