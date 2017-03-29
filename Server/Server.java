@@ -11,6 +11,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
+import java.util.Scanner;
+import java.io.File;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
@@ -30,6 +32,7 @@ public class Server{
   static String htmltop = "<!DOCTYPE html>\n"
   + "<head>\n"
   + "<title>U+FFFD Corp's Super Private Employee Directory</title>\n"
+  + "<link rel='stylesheet' type='text/css' href='style.css'>\n"
   + "</head>\n"
   + "<body>\n"
   + "<table>\n"
@@ -53,6 +56,7 @@ public class Server{
     // creates contexts for displaying and posting data
     server.createContext("/displayresults", new DisplayHandler());
     server.createContext("/sendresults", new PostHandler());
+    server.createContext("/style.css", new CssHandler());
 
     server.setExecutor(null);
 
@@ -179,6 +183,19 @@ public class Server{
       t.sendResponseHeaders(200, response.length());
       OutputStream os = t.getResponseBody();
       os.write(response.getBytes());
+      os.close();
+    }
+  }
+
+  static class CssHandler implements HttpHandler {
+    public void handle(HttpExchange t) throws IOException {
+      String css = new Scanner(new File("style.css")).useDelimiter("\\Z").next();
+
+      System.out.println("css: " + css);
+
+      t.sendResponseHeaders(200, css.length());
+      OutputStream os = t.getResponseBody();
+      os.write(css.getBytes());
       os.close();
     }
   }
