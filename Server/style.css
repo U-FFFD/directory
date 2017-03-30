@@ -1,7 +1,22 @@
 body {
-
+    font-family: helvetica;
+    font-size: 20px;
 }
-
 table {
-  
+  table-layout: fixed;
+  width: 1000px;
+  text-align: center;
+  vertical-align: middle;
+  border-collapse:collapse;
+  padding:20px;
+}
+thead {
+    color: white;
+    background-color: #5697ff;
+    font-size: 26px;
+}
+tr:nth-child(even) {background: #CCC}
+td {
+    padding-top: .4em;
+    padding-bottom: .4em;
 }
